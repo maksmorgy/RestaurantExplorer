@@ -1,35 +1,140 @@
-//
-//  TableViewController.swift
-//  Restaurants Explorer
-//
-//  Created by Максим Моргун on 03.10.2021.
-//
+
 
 import UIKit
 
-class TableViewController: UITableViewController {
-
+class TableViewController: UITableViewController,  RestaurantManagerDelegate {
+    
+    var restaurantManager = RestaurantManager()
+    var identifier = "ReusableCell"
+    var mas = [RestaurantModel]()
+    var masDetail = [RestaurantModel]()
+    var conditionCity = String()
+    var conditionCategory = String()
+        
+    
+    @IBOutlet var segmentControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        restaurantManager.delegate = self
+        tableView.dataSource = self
+        restaurantManager.makeRequest(category: conditionCategory, city: conditionCity)}
+                                                                                                        
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+                             
+    @IBAction func buttonAction(_ sender: UIButton) {
+        
+        let inPath = IndexPath.init(row: 0, section: 0)
+        let cell = tableView.cellForRow(at: inPath) as! StaticTableViewCell
+        if let text = cell.cityTextField.text {
+            conditionCity = text
+            //restaurantManager.fetchRestaurant(cityStr: conditionCity)
+            restaurantManager.makeRequest(category: conditionCategory, city: conditionCity)
+        }
+        cell.cityTextField.text = ""
+  
     }
+    
+    @IBAction func segmentPressed(_ sender: UISegmentedControl) {
+        var str: String
+        //print(segmentControl.selectedSegmentIndex)
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            str = "restaurant"
+        case 1:
+            str = "cafe"
+        case 2:
+            str = "sushi"
+        case 3:
+            str = "pub"
+        case 4:
+            str = "pizza"
+        default:
+            str = "restaurant"
+        }
+        conditionCategory = str
+        restaurantManager.makeRequest(category: conditionCategory, city: conditionCity)
+        
+        
+    }
+    
+    
+    
+    func didUpdateValue(_ restaurantManager: RestaurantManager, restaurant: [RestaurantModel?]) {
+        print(restaurant[0]?.code)
+        if restaurant[0]?.code == nil {
+    
+        } else {
+        mas.removeAll()
+            for i in 0...restaurant.count - 1 {
+                self.mas.append(restaurant[i]!)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    }
+    
+    func didFailWithError(error: Error) {
+        print("error")
+    }
+    
 
+    // MARK: - extension TableViewController: UITableViewDelegate, UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return mas.count
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StaticCell", for: indexPath) as! StaticTableViewCell
+            return cell
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReuseIdentifire", for: indexPath) as! TableViewCell
+            let restaurant = mas[indexPath.row]
+            cell.nameLabel.text = restaurant.name
+            cell.adressLabel.text = "City: \(restaurant.city) adress: \(restaurant.adress)"
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+           return 50
+        } else {
+           return 100
+            
+        }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            
+        } else {
+        self.masDetail = [mas[indexPath.row]]
+        performSegue(withIdentifier: "DetailSegue", sender: self)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is DetailViewController {
+            let vc = segue.destination as! DetailViewController
+            vc.mas = self.masDetail
+        }
+    }
+
+    
+}
+
+
+
+
+
+
+
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,4 +191,4 @@ class TableViewController: UITableViewController {
     }
     */
 
-}
+

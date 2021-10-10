@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct RestaurantModel{
+    
+    let name: String
+    let adress: String
+    let city: String
+    let code: Int
+
+}
