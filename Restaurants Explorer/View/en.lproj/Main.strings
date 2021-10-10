@@ -1,0 +1,33 @@
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "4MY-Pq-NzV"; */
+"4MY-Pq-NzV.title" = "Details";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6rp-dS-12J"; */
+"6rp-dS-12J.text" = "Label";
+
+/* Class = "UISegmentedControl"; 78v-jK-MF4.segmentTitles[0] = "Restaurant"; ObjectID = "78v-jK-MF4"; */
+"78v-jK-MF4.segmentTitles[0]" = "Restaurant";
+
+/* Class = "UISegmentedControl"; 78v-jK-MF4.segmentTitles[1] = "Cafe"; ObjectID = "78v-jK-MF4"; */
+"78v-jK-MF4.segmentTitles[1]" = "Cafe";
+
+/* Class = "UISegmentedControl"; 78v-jK-MF4.segmentTitles[2] = "Sushi"; ObjectID = "78v-jK-MF4"; */
+"78v-jK-MF4.segmentTitles[2]" = "Sushi";
+
+/* Class = "UISegmentedControl"; 78v-jK-MF4.segmentTitles[3] = "Pub"; ObjectID = "78v-jK-MF4"; */
+"78v-jK-MF4.segmentTitles[3]" = "Pub";
+
+/* Class = "UISegmentedControl"; 78v-jK-MF4.segmentTitles[4] = "Pizza"; ObjectID = "78v-jK-MF4"; */
+"78v-jK-MF4.segmentTitles[4]" = "Pizza";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "AYU-Gy-efS"; */
+"AYU-Gy-efS.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Restaurants Explorer"; ObjectID = "ffa-f7-npM"; */
+"ffa-f7-npM.title" = "Restaurants Explorer";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "lb4-7U-6Qw"; */
+"lb4-7U-6Qw.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "City:"; ObjectID = "w8e-Z3-9Fe"; */
+"w8e-Z3-9Fe.placeholder" = "City:";
